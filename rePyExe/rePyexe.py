@@ -59,4 +59,336 @@ def exe2pyc():
 								print ''
 								sys.exit(0)
 						else:
+								print ''
+								sys.stdout.write(RED + ' [!] File not found : ' + END + str(s))
+								print ''
+								print ''
+								enter = raw_input("press any key to return")
+								clear()
+								heading()
+								print ''
 
+def pyc2py():
+				cwd = str(os.getcwd())
+				s = raw.input("Type the path of your .pyc: ")
+				ff = str(s)
+				check =  os.path.isfile(ff)
+				if check == True:
+								new = raw_input("Type a name to save your .py")
+								clear()
+								heading()
+								print ''
+								sys.stdout.write(YELLOW + ' [*] Working: ' + END + str(s))
+								os.popen('./pycdc/pycdc ' + s + ' >> ' + new + '.py')
+								print ''
+								time.sleep(3)
+								clear()
+								heading()
+								print ''
+								print 'Everything is OK!'
+								sys.stdout.write(GREEN + ' [*] Done : ' + END + cwd + '/' + str(new) + '.py')
+								print ''
+								sys.exit(0)
+					else:
+								print ' '
+								sys.stdout.write(RED + ' [!] File not found : ' + END + str(s))
+							  print ' '
+							  print ' '
+							  enter = raw_input("Press any key to return ")
+							  clear()
+							  heading()
+							  print ' '
+
+def updater():
+			os.system('python2.7 updater.py')
+
+def pp():
+				print """
+								....
+						,''. :   __
+             \|_.'  `:       _.----._//_
+						.'  .'.`'-._   .'  _/ -._ \)-.----O
+           '._.'.'      '--''-'._   '--..--'-`
+            .'.'___    /`'---'. / ,-'`
+  *       _<__.-._))../ /'----'/.'_____:'.
+	   \_    :            \ ]              :  '.
+		   \___:   SEE YOU   \\   LATER !     :    '.
+         :              \\__            :    .'
+				 :_______________|__]__________:  .'
+				               __ '.           :.'
+                   .' .'  '. '.
+                .' .'      '. '.      #rePy2exe
+              .' .'          '. '.
+           _.' .'______________'. '._
+					[_0______________________0_]
+"""
+
+def main():
+				
+				clear()
+				path = 'pycdc'
+				if os.path.isdir(path):
+								pass
+				else:
+							heading()
+							print ''
+							sys.stdout.write(YELLOW + ' [*] NotFound : ' + END + 'pycdc')
+							print ' '
+								choice = raw_input('Dependencies not found, want clone it? (y/n)')
+								if choice == 'y':
+									clear()
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Searching Cmake...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+									abc = os.system('which cmake')
+									if abc == 256:
+										clear()
+										heading()
+										print ' '
+										sys.stdout.write(YELLOW + ' [*] Searching Cmake : ' + END + RED + 'Not Found' + END)
+										print ' '
+										print ' '
+										print '   Please install it :     https://cmake.org      '
+										print '  -> apt-get install cmake -y'
+										sys.exit(0)
+									else:
+										print "OK"
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Cloning Dependencies...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+										os.popen('git clone https://github.com/4w4k3/pycdc.git')
+									clear()
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Compiling Dependencies...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+									os.system('cd pycdc && cmake ../pycdc/ && make')
+								elif choice == 'Y':
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Searching Cmake...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+									abc = os.system('which cmake')
+									if abc == 256:
+										clear()
+										heading()
+										print ' '
+										sys.stdout.write(YELLOW + ' [*] Searching Cmake : ' + END + RED + 'Not Found' + END)
+										print ' '
+										print ' '
+										print '   Please install it :     https://cmake.org      '
+										sys.exit(0)
+									else:
+										print "OK"
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Cloning Dependencies...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+										os.popen('git clone https://github.com/4w4k3/pycdc.git')
+									clear()
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print ' [*] Compiling Dependencies...'
+									print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+									print '                              '
+									os.system('cd pycdc && cmake ../pycdc/ && make')
+								else:
+									sys.exit(0)
+									
+								clear()
+					
+								heading()
+					
+								try:
+									
+									while True:
+										
+										optionBanner()
+										
+										header = ('{0}rePy2exe{1}> {2}'.format(BLUE, WHITE, END))
+										choice = raw_input(header)
+										
+										if choice.upper() == 'Q' or choice.upper() == 'EXIT':
+									clear()
+									pp()
+									
+									print('\t{0} And that\'s all, folks. xD').format(YELLOW, RED, YELLOW, WHITE)
+									print '**************************************************'
+											raise SystemExit
+										elif choice == '1':
+											exe2py()
+										elif choice == '2':
+											exe2pyc()
+										elif choice == '3':
+											pyc2py()	
+									elif choice.upper() == 'UPDATE':
+									updater()
+									elif choice.upper() == 'U':
+									updater()		
+										else:
+									clear()
+									print 'Invalid Option'
+									time.sleep(1)
+									clear()
+									heading()
+									print ' '
+									
+								except KeyboardInterrupt:
+								clear()
+								pp()
+					
+								print('\t{0} And that\'s all, folks. xD').format(YELLOW, RED, YELLOW, WHITE)
+								print '**************************************************'
+					
+							if __name__ == '__main__':
+								
+								main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										
+
+
+
+
+
+
+
+
+
+
+
+								
