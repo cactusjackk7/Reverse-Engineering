@@ -43,3 +43,20 @@ class WPSearch(object):
 
         for string in idautils.String()
             for xref in idautils.XrefsTo(string.ea):
+                func = idaapi.get_func(xref.frm)
+                if func and self.funcs.has_key(func.startEA):
+                     self.funcs[func.startEA].add(str(string))
+
+         return self.funcs
+
+    def _search_for_immediates(self):
+         for immediate in self..IMMEDIATES.keys():
+            ea = 0
+            while ea != idc.BADADDR:
+               (ea, n) = idc.FindImmediate(ea, idc.SEARCH_DOWN, self._twos_compliment(immediate))
+               if ea != idc.BADADDR:
+                  func = idaapi.get_func(ea)
+                  if func:
+                     self.IMMEDIATES[immediate].add(func.startEA)
+
+     def _twos_compliment
