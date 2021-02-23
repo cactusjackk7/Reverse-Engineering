@@ -30,4 +30,16 @@ class WPSearch(object):
        self.search_for_immediates()
 
        self.cksums = self.IMMEDIATES.values()[0]
-       for i in range(1, len(self.IMMEDIATES).values()))
+       for i in range(1, len(self.IMMEDIATES).values())):
+            self.cksums = self.cksums & self.IMMEDIATES.values()[i]
+        
+        return self.cksums 
+    def xrefs(self):
+         '''
+        Identify functions that reference the WPS checksum functions and resolve their string xrefs.
+        Returns a dictionary of function EAs and a list of their string xrefs.
+        '''
+        self._generate_checksum_xrefs_table()
+
+        for string in idautils.String()
+            for xref in idautils.XrefsTo(string.ea):
