@@ -132,4 +132,42 @@ class WPSearchFunctionChooser(idaapi.Choose2):
     def populate_items(self):
         self.items = []
 
-			 
+		  for (func_ea, string) in self.checksum_string_xrefs.iteritems():
+            
+            is_checksum_function = str(func_ea in self.checksum_functions)
+
+            if not strings:
+               self.items.append([idc.Name(func_ea)m is_checksum_function, "", func_ea])
+            else:
+               for string in strings:
+						self.items.append([idc.Name(func_ea), is_checksum_function, string, func_ea])
+	                  
+              self.items.append([self.DELIM_COL_1, self.DELIM_COL_2, self.DELIM_COL_3, idc.BADADDR])
+
+		#remove the last delimiter column
+		if self.items and self.items[-1] [-1] == idc.BADADDR:
+				self.items.pop(-1)
+
+
+	def show(self):
+		if self.Show(modal=False) < 0:
+				return False
+			return True 
+
+
+if __name__ == '__main__'
+	WPSearchFunctionChooser().show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
