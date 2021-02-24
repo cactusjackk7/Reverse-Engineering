@@ -60,3 +60,76 @@ class WPSearch(object):
                      self.IMMEDIATES[immediate].add(func.startEA)
 
      def _twos_compliment
+		if idaapi.BADADDR == 0xFFFFFFFFFFFFFFFFL:
+            tv = self.__twos_compliment(val, 64)
+        else:
+            tv = self.__twos_compliment(val, 32)
+        return tv
+
+    def __twos_compliment(self, val, bits):
+        '''
+        Python converts values larger than 0x7FFFFFFF into longs, which
+        aren't converted properly in the swig translation. Use 2's compliment
+        for large values instead.
+        '''
+        if (val & (1 << (bits - 1))) != 0:
+            val = val - (1 << bits)
+        return val
+
+    def _generate_checksum_xrefs_table(self):
+        self.funcs = {}
+
+        if not self.cksums:
+            self.checksums()
+
+        for cksum in self.cksums:
+            func = idaapi.get_func(cksum)
+            if func:
+                self.funcs[func.startEA] = set()
+
+            for xref in idautils.XrefsTo(cksum):
+                func = idaapi.get_func(xref.frm)
+                if func and not self.funcs.has_key(func.startEA):
+                    self.funcs[func.startEA] = set()
+
+class WPSearchFunctionChooser(idaapi.Choose2):
+
+    DELIM_COL_1 = '-' * 50
+    DELIM_COL_2 = '-' * 20
+    DELIM_COL_3 = '-' * 125
+
+    def __init__(self):
+        idaapi.Choose2.__init__(self,
+                                "WPS Function Profiles",
+                                [
+                                    ["Function", 15 | idaapi.Choose2.CHCOL_PLAIN],
+                                    ["Contains checksum algorithm", 15 | idaapi.Choose2.CHCOL_PLAIN],
+                                    ["String(s)", 75 | idaapi.Choose2.CHCOL_PLAIN],
+                                ])
+
+        self.icon = 41
+        self.wps = WPSearch()
+
+        self.run_scans()
+        self.populate_items()
+
+    def OnSelectLine(self, n):
+        idc.Jump(self.items[n][-1])
+
+    def OnGetSize(self):
+        return len(self.items)
+
+    def OnGetLine(self, n):
+        return self.items[n]
+
+    def OnClose(self):
+        pass
+
+    def run_scans(self):
+        self.checksum_functions = self.wps.checksums()
+        self.checksum_string_xrefs = self.wps.xrefs()
+
+    def populate_items(self):
+        self.items = []
+
+			 
